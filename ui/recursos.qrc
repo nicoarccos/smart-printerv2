@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="recursos">
+    <file>../assets/Iconos/alarma.png</file>
+    <file>../assets/Iconos/email.png</file>
+    <file>../assets/Iconos/escaneo.png</file>
+    <file>../assets/Iconos/escaneo-de-ojos.png</file>
+    <file>../assets/Iconos/info.png</file>
+    <file>../assets/Iconos/salir.png</file>
+  </qresource>
+</RCC>
