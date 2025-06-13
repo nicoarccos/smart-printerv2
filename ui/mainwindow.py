@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainwindowbXEjXw.ui'
+## Form generated from reading UI file 'mainwindowgbPcSQ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(896, 712)
+        MainWindow.resize(982, 809)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -125,7 +125,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 896, 33))
+        self.menubar.setGeometry(QRect(0, 0, 982, 33))
         self.menuSmart_Prinet = QMenu(self.menubar)
         self.menuSmart_Prinet.setObjectName(u"menuSmart_Prinet")
         self.menuEditar = QMenu(self.menubar)

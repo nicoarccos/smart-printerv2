@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>896</width>
-    <height>712</height>
+    <width>982</width>
+    <height>809</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,52 +33,52 @@
              <string>Escaneo</string>
             </property>
             <property name="icon">
-             <iconset resource="recursos.qrc">
-              <normaloff>:/recursos/Iconos/escaneo-de-ojos.png</normaloff>:/recursos/Iconos/escaneo-de-ojos.png</iconset>
+             <iconset resource="ui/recursos.qrc">
+              <normaloff>:/recursos/assets/Iconos/escaneo.png</normaloff>:/recursos/assets/Iconos/escaneo.png</iconset>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="alarmas">
             <property name="text">
              <string>Alarmas</string>
             </property>
             <property name="icon">
-             <iconset resource="recursos.qrc">
-              <normaloff>:/recursos/Iconos/alarma.png</normaloff>:/recursos/Iconos/alarma.png</iconset>
+             <iconset resource="ui/recursos.qrc">
+              <normaloff>:/recursos/assets/Iconos/alarma.png</normaloff>:/recursos/assets/Iconos/alarma.png</iconset>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="notificaciones">
             <property name="text">
              <string>Notificaciones</string>
             </property>
             <property name="icon">
-             <iconset resource="recursos.qrc">
-              <normaloff>:/recursos/Iconos/email.png</normaloff>:/recursos/Iconos/email.png</iconset>
+             <iconset resource="ui/recursos.qrc">
+              <normaloff>:/recursos/assets/Iconos/alarma.png</normaloff>:/recursos/assets/Iconos/alarma.png</iconset>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_4">
+           <widget class="QPushButton" name="informacion">
             <property name="text">
              <string>Informacion</string>
             </property>
             <property name="icon">
-             <iconset resource="recursos.qrc">
-              <normaloff>:/recursos/Iconos/info.png</normaloff>:/recursos/Iconos/info.png</iconset>
+             <iconset resource="ui/recursos.qrc">
+              <normaloff>:/recursos/assets/Iconos/info.png</normaloff>:/recursos/assets/Iconos/info.png</iconset>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_5">
+           <widget class="QPushButton" name="salir">
             <property name="text">
              <string>Salir</string>
             </property>
             <property name="icon">
-             <iconset resource="recursos.qrc">
-              <normaloff>:/recursos/Iconos/salir.png</normaloff>:/recursos/Iconos/salir.png</iconset>
+             <iconset resource="ui/recursos.qrc">
+              <normaloff>:/recursos/assets/Iconos/salir.png</normaloff>:/recursos/assets/Iconos/salir.png</iconset>
             </property>
            </widget>
           </item>
@@ -88,29 +88,14 @@
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page">
-          <widget class="QTextBrowser" name="textBrowser">
-           <property name="geometry">
-            <rect>
-             <x>40</x>
-             <y>150</y>
-             <width>111</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="html">
-            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pagina 1 Escaneo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QTableWidget" name="tableWidget"/>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="page_2">
           <widget class="QTextBrowser" name="textBrowser_2">
@@ -191,7 +176,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>896</width>
+     <width>982</width>
      <height>33</height>
     </rect>
    </property>
@@ -228,7 +213,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
   </widget>
  </widget>
  <resources>
-  <include location="recursos.qrc"/>
+  <include location="ui/recursos.qrc"/>
  </resources>
  <connections/>
 </ui>

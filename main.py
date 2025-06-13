@@ -1,9 +1,13 @@
-from ui.mainwindow import Ui_MainWindow
+from qdarkstyle import load_stylesheet_pyside6
+from ui.escaneo_window import Escaneo
+from ui.alarmas_window import AlarmaWidget
+from ui.tabla_impresoras import TablaImpresoras
+
+from core.monitor_manager import MonitorManager
+from ui.notificaciones_window import Notificaciones
 from utils.utils import abs_path
-from PySide6.QtWidgets import QApplication, QMainWindow
-from ui.mainwindow import Ui_MainWindow
+
 import sys
-import os
 from ui.mainwindow import *
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -11,14 +15,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.cargarQSS("assets/qss/QDark.qss")
-        #posibles
-        #Dtor
-        #MailSy
-        #QDark
-        #QDarkOrange
+        # Instanciar vistas en paginas de StackedWidget
+        self.tabla_impresoras = TablaImpresoras()
+        self.alarma_widget = AlarmaWidget()
+        self.notificaciones_widget = Notificaciones()
+        self.escaneo_widget = Escaneo()
+        self.monitor = MonitorManager()
 
-        self.cargar_datos_tabla()
+        # Agregar vistas a StackedWidget
+        self.stackedWidget.addWidget(self.tabla_impresoras)
+        self.stackedWidget.addWidget(self.alarma_widget)
+        self.stackedWidget.addWidget(self.notificaciones_widget)
+        self.stackedWidget.addWidget(self.escaneo_widget)
+
+        # Conectar vistas con click en boton
+        #self.escaneo.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.escaneo_widget))
+        self.escaneo.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.tabla_impresoras))
+        self.alarmas.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.alarma_widget))
+        self.notificaciones.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.notificaciones_widget))
+        self.escaneo.clicked.connect(self.iniciar_escaneo)
 
     #Carga de estilos
     def cargarQSS(self, fichero):
@@ -30,39 +45,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print("Erorr abirnedo los estilos",path)
 
 
-    # Conexion entre botones y paginas de stacked widget
-        self.escaneo.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(0))
-        self.alarmas.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
-        self.notificaciones.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(2))
-        self.informacion.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(3))
-        self.salir.clicked.connect(lambda: self.close())
+    def iniciar_escaneo(self):
+        lista_ips = ['192.168.0.{i}' for i in range (1,10)]
+        self.monitor.escanear_ips(lista_ips, self.mostrar_resultado)
 
-    def cargar_datos_tabla(self):
-        # Lista hipotetica de prueba para visualizacion
-        datos_metricas = [
-            {"Impresora": "Epson", "IP": "192.165.231.31","Estado": "Activa", "Tinta": "50%", "Contador": "534", "Ultimo Escaneo": "25-3:25 12:30:22", "Ubicacion": "Sistemas"},
-            {"Impresora": "HP", "IP": "192.165.134.31", "Estado": "Activa", "Tinta": "23%", "Contador": "12","Ultimo Escaneo": "25-3:25 12:30:22", "Ubicacion": "Finanzas"}
-
-        ]
-
-        # Configuracion de tabla (numero de filas y columnas)
-        self.tableWidget.setRowCount(len(datos_metricas))
-        self.tableWidget.setColumnCount(7)
-        self.tableWidget.setHorizontalHeaderLabels(["Impresora", "IP", "Estado", "Tinta", "Contador", "Ultimo Escaneo", "Ubicacion"])
-
-        # Llenamos la tabla con datos
-        for fila, datos in enumerate(datos_metricas):
-            self.tableWidget.setItem(fila, 0, QTableWidgetItem(datos["Impresora"]))
-            self.tableWidget.setItem(fila, 1, QTableWidgetItem(datos["IP"]))
-            self.tableWidget.setItem(fila, 2, QTableWidgetItem(datos["Estado"]))
-            self.tableWidget.setItem(fila, 3, QTableWidgetItem(datos["Tinta"]))
-            self.tableWidget.setItem(fila, 4, QTableWidgetItem(datos["Contador"]))
-            self.tableWidget.setItem(fila, 5, QTableWidgetItem(datos["Ultimo Escaneo"]))
-            self.tableWidget.setItem(fila, 6, QTableWidgetItem(datos["Ubicacion"]))
+    def mostrar_resultado(self,ip, estado):
+        fila = self.tableWidget.rowCount()
+        self.tableWidget.insertRow(fila)
+        self.tableWidget.setItem(fila, 0, QTableWidgetItem("Desconocido"))
+        self.tableWidget.setItem(fila,1, QTableWidgetItem(ip))
+        self.tableWidget.setItem(fila,2, QTableWidgetItem("En linea" if estado else "Sin Conexion"))
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    app.setStyleSheet(load_stylesheet_pyside6())
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
