@@ -1,5 +1,9 @@
 # tabla_impresoras.py
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem
+import json
+from datetime import datetime
+from pathlib import Path
+
 
 class TablaImpresoras(QWidget):
     def __init__(self):
@@ -14,26 +18,42 @@ class TablaImpresoras(QWidget):
         self.cargar_datos()
 
     def configurar_tabla(self):
-        self.tabla.setColumnCount(7)
+        self.tabla.setColumnCount(8)
         self.tabla.setHorizontalHeaderLabels([
-            "Impresora", "IP", "Estado", "Tinta", "Contador", "Ultimo Escaneo", "Ubicacion"
+            "Host", "Modelo", "IP", "Estado", "Tinta", "Contador", "Ultimo Escaneo", "Ubicacion"
         ])
 
     def cargar_datos(self):
-        datos = [
-            {"Impresora": "Epson", "IP": "192.165.231.31", "Estado": "Activa", "Tinta": "50%",
-             "Contador": "534", "Ultimo Escaneo": "25-3:25 12:30:22", "Ubicacion": "Sistemas"},
-            {"Impresora": "HP", "IP": "192.165.134.31", "Estado": "Activa", "Tinta": "23%",
-             "Contador": "12", "Ultimo Escaneo": "25-3:25 12:30:22", "Ubicacion": "Finanzas"}
-        ]
+        ruta_json = Path(__file__).resolve().parent.parent / "agent" / "estado_impresora.json"
+
+        if not ruta_json.exists():
+            print("⚠️ Archivo JSON no encontrado.")
+            return
+
+        with open(ruta_json, "r", encoding="utf-8") as f:
+            datos_json = json.load(f)
+
+        datos = [{
+            "Host": datos_json["InformacionDelSistema"].get("NombreDelHost", "N/A"),
+            "Modelo": datos_json["NivelesDeToner"].get("ModeloDeImpresora", "N/A"),
+            "IP": datos_json["InformacionDeRed"].get("DireccionIP", "N/A"),
+            "Estado": datos_json["InformacionDeRed"].get("Estado", "N/A"),
+            "Tinta": datos_json["NivelesDeToner"].get("NivelDeTonerNegro", "N/A"),
+            "Contador": datos_json["NivelesDeToner"].get("PaginasImpresas", "N/A"),
+            "Ultimo Escaneo": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
+            "Ubicacion": "Desconocida"
+        }]
 
         self.tabla.setRowCount(len(datos))
 
         for fila, item in enumerate(datos):
-            self.tabla.setItem(fila, 0, QTableWidgetItem(item["Impresora"]))
-            self.tabla.setItem(fila, 1, QTableWidgetItem(item["IP"]))
-            self.tabla.setItem(fila, 2, QTableWidgetItem(item["Estado"]))
-            self.tabla.setItem(fila, 3, QTableWidgetItem(item["Tinta"]))
-            self.tabla.setItem(fila, 4, QTableWidgetItem(item["Contador"]))
-            self.tabla.setItem(fila, 5, QTableWidgetItem(item["Ultimo Escaneo"]))
-            self.tabla.setItem(fila, 6, QTableWidgetItem(item["Ubicacion"]))
+            self.tabla.setItem(fila, 0, QTableWidgetItem(item["Host"]))
+            self.tabla.setItem(fila, 1,QTableWidgetItem(item["Modelo"]))
+            self.tabla.setItem(fila, 2, QTableWidgetItem(item["IP"]))
+            self.tabla.setItem(fila, 3, QTableWidgetItem(item["Estado"]))
+            self.tabla.setItem(fila, 4, QTableWidgetItem(item["Tinta"]))
+            self.tabla.setItem(fila, 5, QTableWidgetItem(item["Contador"]))
+            self.tabla.setItem(fila, 6, QTableWidgetItem(item["Ultimo Escaneo"]))
+            self.tabla.setItem(fila, 7, QTableWidgetItem(item["Ubicacion"]))
+
+

@@ -1,0 +1,17 @@
+{
+    "InformacionDelSistema": {
+        "NombreDelHost": "Pantum-EB7B6C",
+        "TiempoDeActividad": "1d 22h 35m 33s"
+    },
+    "NivelesDeToner": {
+        "ModeloDeImpresora": "Pantum P2500W series",
+        "EstadoDelDispositivo": "running",
+        "NivelDeTonerNegro": "100%",
+        "EstadoTonerNegro": "OK",
+        "PaginasImpresas": "N/A"
+    },
+    "InformacionDeRed": {
+        "DireccionIP": "192.168.223.1",
+        "Estado": "Online"
+    }
+}
