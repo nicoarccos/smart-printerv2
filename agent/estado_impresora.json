@@ -1,17 +1,17 @@
 {
     "InformacionDelSistema": {
-        "NombreDelHost": "Pantum-EB7B6C",
-        "TiempoDeActividad": "1d 22h 35m 33s"
+        "NombreDelHost": "M 320F",
+        "TiempoDeActividad": "0d 2h 33m 7s"
     },
     "NivelesDeToner": {
-        "ModeloDeImpresora": "Pantum P2500W series",
-        "EstadoDelDispositivo": "running",
-        "NivelDeTonerNegro": "100%",
-        "EstadoTonerNegro": "OK",
-        "PaginasImpresas": "N/A"
+        "Modelo": "M 320F",
+        "Estado": "idle",
+        "NivelToner": "58%",
+        "EstadoToner": "desconocido (-2)",
+        "PaginasTotales": "25151"
     },
     "InformacionDeRed": {
-        "DireccionIP": "192.168.223.1",
+        "DireccionIP": "169.254.3.199",
         "Estado": "Online"
     }
 }

@@ -35,11 +35,11 @@ class TablaImpresoras(QWidget):
 
         datos = [{
             "Host": datos_json["InformacionDelSistema"].get("NombreDelHost", "N/A"),
-            "Modelo": datos_json["NivelesDeToner"].get("ModeloDeImpresora", "N/A"),
+            "Modelo": datos_json["NivelesDeToner"].get("Modelo", "N/A"),
             "IP": datos_json["InformacionDeRed"].get("DireccionIP", "N/A"),
             "Estado": datos_json["InformacionDeRed"].get("Estado", "N/A"),
-            "Tinta": datos_json["NivelesDeToner"].get("NivelDeTonerNegro", "N/A"),
-            "Contador": datos_json["NivelesDeToner"].get("PaginasImpresas", "N/A"),
+            "Tinta": datos_json["NivelesDeToner"].get("NivelToner", "N/A"),
+            "Contador": datos_json["NivelesDeToner"].get("PaginasTotales", "N/A"),
             "Ultimo Escaneo": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
             "Ubicacion": "Desconocida"
         }]
@@ -56,4 +56,23 @@ class TablaImpresoras(QWidget):
             self.tabla.setItem(fila, 6, QTableWidgetItem(item["Ultimo Escaneo"]))
             self.tabla.setItem(fila, 7, QTableWidgetItem(item["Ubicacion"]))
 
+    def actualizar_tabla(self):
+        try:
+            ruta_json = Path(__file__).resolve().parent.parent / "agent" / "estado_impresora.json"
+            with open(ruta_json, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception as e:
+            print(f"❌ Error leyendo el JSON: {e}")
+            return
+
+        self.tabla.setRowCount(1)
+
+        self.tabla.setItem(0, 0, QTableWidgetItem(data["InformacionDelSistema"].get("NombreDelHost", "N/A")))
+        self.tabla.setItem(0, 1, QTableWidgetItem(data["NivelesDeToner"].get("Modelo", "N/A")))
+        self.tabla.setItem(0, 2, QTableWidgetItem(data["InformacionDeRed"].get("DireccionIP", "N/A")))
+        self.tabla.setItem(0, 3, QTableWidgetItem(data["InformacionDeRed"].get("Estado", "N/A")))
+        self.tabla.setItem(0, 4, QTableWidgetItem(data["NivelesDeToner"].get("NivelToner", "N/A")))
+        self.tabla.setItem(0, 5, QTableWidgetItem(data["NivelesDeToner"].get("PaginasTotales", "N/A")))
+        self.tabla.setItem(0, 6, QTableWidgetItem(datetime.now().strftime("%d-%m-%Y %H:%M:%S")))
+        self.tabla.setItem(0, 7, QTableWidgetItem("Desconocida"))
 

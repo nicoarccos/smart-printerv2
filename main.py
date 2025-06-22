@@ -19,7 +19,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tabla_impresoras = TablaImpresoras()
         self.alarma_widget = AlarmaWidget()
         self.notificaciones_widget = Notificaciones()
-        self.escaneo_widget = Escaneo()
+        self.escaneo_widget = Escaneo(self.tabla_impresoras, self.stackedWidget)
+
         self.monitor = MonitorManager()
 
         # Agregar vistas a StackedWidget
@@ -29,11 +30,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.stackedWidget.addWidget(self.escaneo_widget)
 
         # Conectar vistas con click en boton
-        #self.escaneo.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.escaneo_widget))
-        self.escaneo.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.tabla_impresoras))
+        self.escaneo.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.escaneo_widget))
+        #self.escaneo.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.tabla_impresoras))
         self.alarmas.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.alarma_widget))
         self.notificaciones.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.notificaciones_widget))
-        self.escaneo.clicked.connect(self.iniciar_escaneo)
+#        self.escaneo_widget.set_parent_widget(self.stackedWidget)
 
     #Carga de estilos
     def cargarQSS(self, fichero):
@@ -45,16 +46,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print("Erorr abirnedo los estilos",path)
 
 
-    def iniciar_escaneo(self):
-        lista_ips = ['192.168.0.{i}' for i in range (1,10)]
-        self.monitor.escanear_ips(lista_ips, self.mostrar_resultado)
-
-    def mostrar_resultado(self,ip, estado):
-        fila = self.tableWidget.rowCount()
-        self.tableWidget.insertRow(fila)
-        self.tableWidget.setItem(fila, 0, QTableWidgetItem("Desconocido"))
-        self.tableWidget.setItem(fila,1, QTableWidgetItem(ip))
-        self.tableWidget.setItem(fila,2, QTableWidgetItem("En linea" if estado else "Sin Conexion"))
 
 
 if __name__ == '__main__':

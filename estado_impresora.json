@@ -1,0 +1,17 @@
+{
+    "InformacionDelSistema": {
+        "NombreDelHost": "N/A",
+        "TiempoDeActividad": "N/A"
+    },
+    "NivelesDeToner": {
+        "ModeloDeImpresora": "N/A",
+        "EstadoDelDispositivo": "N/A",
+        "NivelDeTonerNegro": "N/A",
+        "EstadoTonerNegro": "N/A",
+        "PaginasImpresas": "N/A"
+    },
+    "InformacionDeRed": {
+        "DireccionIP": "N/A",
+        "Estado": "Offline"
+    }
+}

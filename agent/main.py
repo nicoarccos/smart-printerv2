@@ -1,8 +1,9 @@
 import asyncio
 import json
-from info_host import obtener_info_sistema
-from toner_model import obtener_estado_impresora
-from red_impresora import *
+from agent.info_host import *
+from agent.red_impresora import *
+from agent.toner_model import *
+from pathlib import Path
 
 async def generar_reporte(ip, community):
     info_sistema = await obtener_info_sistema(ip, community)
@@ -19,8 +20,8 @@ async def generar_reporte(ip, community):
 
     print(json.dumps(resultado, indent=4))
 
-    with open("estado_impresora.json", "w") as f:
+    ruta_json = Path(__file__).resolve().parent / "estado_impresora.json"
+    with open(ruta_json, "w", encoding="utf-8") as f:
         json.dump(resultado, f, indent=4)
-
 if __name__ == "__main__":
     asyncio.run(generar_reporte("192.168.223.1", "public"))
